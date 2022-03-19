@@ -1,7 +1,5 @@
 package sensor_statistics.domain
 
-import scala.util.Random
-
 case class SingleReading(sensorId: String, humidity: String)
 
 object SingleReading {

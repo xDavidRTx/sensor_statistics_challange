@@ -63,12 +63,25 @@ s1,10,54,98
 s3,NaN,NaN,NaN
 ```
 
-## Notes
+## My solution
 
-- Single daily report file can be very large, and can exceed program memory
-- Program should only use memory for its internal state (no disk, no database)
-- Any open source library can be used (besides Spark)
-- Please use vanilla scala, akka-stream, monix or similar technology.
-- You're more than welcome to implement a purely functional solution using cats-effect, fs2 and/or ZIO to impress,
-  but this is not a mandatory requirement.
-- Sensible tests are welcome
+There are several libraries that could ease the job but as this was a small task I decided to go with only vanilla scala for the solution. 
+
+To avoid having problems with big csv files I used an iterator and a element by element calculations instead of loading all the data into memory
+
+## How to execute in the command line
+
+To build the jar file please use the following command
+```
+ sbt assembly 
+```
+
+This will create a jar file inside `target/scala-2.13`
+
+That can be executed with 
+
+```
+java -jar -Xmx100m target/scala-2.13/sensor_statistics-assembly-0.1.jar PATH_TO_DIR
+```
+
+The `-Xmx100m` is not needed. Just for personal tests without using massive files
