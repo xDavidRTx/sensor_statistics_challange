@@ -21,14 +21,13 @@ object SensorStatistics extends App {
       readLine()
     }
   val sensorDataMap = mutable.HashMap[String, SensorData]()
-  getListOfFiles(path).foreach(iterateFile)
-
-  overallStatistics.sensors.sorted(SensorData.ordering).foreach(println)
+  val files = getListOfFiles(path)
+  files.foreach(iterateFile)
 
   def iterateFile(file: File): Unit =
     Source
       .fromInputStream(new FileInputStream(file))
-      .getLines()
+      .getLines().drop(1)
       .flatMap(SingleReading.fromRawText)
       .map(
         parsedLine =>
@@ -38,10 +37,11 @@ object SensorStatistics extends App {
         sensorDataMap.update(updatedSensorInfo.sensorId, updatedSensorInfo)
       }
 
-  println(s"Num of processed files: ")
+  println(s"Num of processed files: ${files.size}")
   println(s"Num of processed measurements: ${overallStatistics.nProcessed}")
   println(s"Num of failed measurements: ${overallStatistics.nFailures}")
 
   println("\nSensors with highest avg humidity:")
   println("\nsensor-id,min,avg,max")
+  overallStatistics.sensors.sorted(SensorData.ordering).foreach(println)
 }
