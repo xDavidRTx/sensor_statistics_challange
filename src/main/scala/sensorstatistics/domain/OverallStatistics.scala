@@ -1,4 +1,4 @@
-package sensor_statistics.domain
+package sensorstatistics.domain
 
 case class OverallStatistics(nProcessed: BigInt, nFailures: BigInt, sensors: List[SensorData] = Nil) {
   def update(sensorData: SensorData): OverallStatistics =

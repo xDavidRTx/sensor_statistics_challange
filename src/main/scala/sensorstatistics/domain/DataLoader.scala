@@ -1,4 +1,4 @@
-package sensor_statistics.domain
+package sensorstatistics.domain
 
 import java.io.File
 

@@ -1,4 +1,4 @@
-package sensor_statistics.domain
+package sensorstatistics.domain
 
 case class SensorData(
     sensorId: String,
@@ -11,11 +11,11 @@ case class SensorData(
   def update(humidity: String): SensorData = humidity match {
     case "NaN" => failedReading
     case elem =>
-      val humidity = elem.toInt
+      val humidity      = elem.toInt
       val validReadings = nReadings - nFailedReadings
-      val newAvg   = ((humidityAvg * validReadings + humidity) / (validReadings + 1)).toInt
-      val newMax   = if (humidity > max) humidity else max
-      val newMin   = if (humidity < min) humidity else min
+      val newAvg        = ((humidityAvg * validReadings + humidity) / (validReadings + 1)).toInt
+      val newMax        = if (humidity > max) humidity else max
+      val newMin        = if (humidity < min) humidity else min
       this.copy(humidityAvg = newAvg, nReadings = nReadings + 1, max = newMax, min = newMin)
   }
 
